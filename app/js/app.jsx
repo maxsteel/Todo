@@ -159,7 +159,7 @@ var app = app || {};
 					<header className="header">
 						<h1>Do2Do</h1>
 
-						<div className="dateSection"><span className="prev_date" ><a>Prev</a></span><h1 className="todayDate"> Date : {today}  </h1><span className="next_date"><a>Next</a></span></div>
+						<div className="dateSection"><span className="prev_date" ><a>Prev</a></span><h1 className="todayDate">  {today}  </h1><span className="next_date"><a>Next</a></span></div>
 						<input
 							className="new-todo"
 							placeholder="Tell me what to 2 Do?"
