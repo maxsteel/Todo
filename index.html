@@ -56,6 +56,7 @@
 					<li><a href="#team">Team</a></li>
 					<li><a href="#pricing">Pricing</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue">Sign Up</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#modal2" class="btn btn-blue">Sign In</a></li>
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
@@ -138,13 +139,31 @@
 			</div>
 		</div>
 	</section>
+		<div class="modal fade" id="modal2" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content modal-popup">
+				<!-- <a href="#" class="close-link"><i class="icon_close_alt2"></i></a> -->
+				<h3 class="white">Sign In</h3>
+				 <form method="post" name="new_post" id="login_user" >
+				  Email: <input type="text" name="email" id="email"><br/>
+				  <br>
+				  Password: <input type="password" name="password" id="password"><br/>
+				  <br>
+				  Domain Name: <input type="domain_name" name="domain_name" id="domain_name">
+				  <br><br><br>
+				  <input type="submit" value="Submit"  >
+				</form>
+				<div id="demo"></div>
+			</div>
+		</div>
+	</div>
 
 	<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content modal-popup">
 				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
 				<h3 class="white">Sign Up</h3>
-				 <form method="post" name="new_post" id="user_signup" >
+				 <form method="post" name="login_user" id="user_signup" >
 				  Email: <input type="text" name="email" id="email"><br/>
 				  <br>
 				  Password: <input type="password" name="password" id="password"><br/>
@@ -153,7 +172,7 @@
 				  <br>
 				  Name: <input type="text" name="Name" id="name"><br/>
 				  <br>
-				  Domain Name: <input type="domain_name" name="domain_name" id="domain_name">
+				  Domain Name: <input type="domain_name" name="domain_name" id="domain">
 				  <br><br><br>
 				  <input type="submit" value="Submit"  >
 				</form>
@@ -194,6 +213,26 @@
                 }
             })
         });
+        $("#login_user").on('submit', function(event){
+            // send ajax
+            event.preventDefault();
+            $.ajax({
+                url: 'http://happytodo.int2root.c­om/v1/signin', // url where to submit the request
+                type : "POST", // type of action POST || GET
+                dataType : 'json', // data type
+                data : $("#login_user").serialize(), // post data || get divata
+		    success: function( data, textStatus, jQxhr ){  
+		       localStorage.setItem('auth_token', data.auth_token);
+		       window.location = 'http://localhost:8000/app/index.html';
+		    },
+                error: function(xhr, resp, text) {
+                    alert(resp);
+                }
+            })
+        });
+
+
+
     });
 </script>
 </body>
