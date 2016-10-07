@@ -1,5 +1,3 @@
-'use strict';
-
 /*jshint quotmark:false */
 /*jshint white:false */
 /*jshint trailing:false */
@@ -9,7 +7,7 @@ var app = app || {};
 
 (function () {
 	'use strict';
-alert(133);
+
 	app.ALL_TODOS = 'all';
 	app.ACTIVE_TODOS = 'active';
 	app.COMPLETED_TODOS = 'completed';
@@ -19,9 +17,7 @@ alert(133);
 	var ENTER_KEY = 13;
 
 	var TodoApp = React.createClass({
-		displayName: 'TodoApp',
-
-		getInitialState: function getInitialState() {
+		getInitialState: function () {
 			return {
 				nowShowing: app.ALL_TODOS,
 				editing: null,
@@ -29,21 +25,26 @@ alert(133);
 			};
 		},
 
-		componentDidMount: function componentDidMount() {
+		componentDidMount: function () {
+			jQuery('.todoapp').flippage({
+		         width: 'auto',
+		         height: 'auto'
+		     });
+
 			var setState = this.setState;
 			var router = Router({
-				'/': setState.bind(this, { nowShowing: app.ALL_TODOS }),
-				'/active': setState.bind(this, { nowShowing: app.ACTIVE_TODOS }),
-				'/completed': setState.bind(this, { nowShowing: app.COMPLETED_TODOS })
+				'/': setState.bind(this, {nowShowing: app.ALL_TODOS}),
+				'/active': setState.bind(this, {nowShowing: app.ACTIVE_TODOS}),
+				'/completed': setState.bind(this, {nowShowing: app.COMPLETED_TODOS})
 			});
 			router.init('/');
 		},
 
-		handleChange: function handleChange(event) {
-			this.setState({ newTodo: event.target.value });
+		handleChange: function (event) {
+			this.setState({newTodo: event.target.value});
 		},
 
-		handleNewTodoKeyDown: function handleNewTodoKeyDown(event) {
+		handleNewTodoKeyDown: function (event) {
 			if (event.keyCode !== ENTER_KEY) {
 				return;
 			}
@@ -54,67 +55,71 @@ alert(133);
 
 			if (val) {
 				this.props.model.addTodo(val);
-				this.setState({ newTodo: '' });
+				this.setState({newTodo: ''});
 			}
 		},
 
-		toggleAll: function toggleAll(event) {
+		toggleAll: function (event) {
 			var checked = event.target.checked;
 			this.props.model.toggleAll(checked);
 		},
 
-		toggle: function toggle(todoToToggle) {
+		toggle: function (todoToToggle) {
 			this.props.model.toggle(todoToToggle);
 		},
 
-		destroy: function destroy(todo) {
+		destroy: function (todo) {
 			this.props.model.destroy(todo);
 		},
 
-		edit: function edit(todo) {
-			this.setState({ editing: todo.id });
+		edit: function (todo) {
+			this.setState({editing: todo.id});
 		},
 
-		save: function save(todoToSave, text) {
+		save: function (todoToSave, text) {
 			this.props.model.save(todoToSave, text);
-			this.setState({ editing: null });
+			this.setState({editing: null});
 		},
 
-		cancel: function cancel() {
-			this.setState({ editing: null });
+		cancel: function () {
+			this.setState({editing: null});
 		},
 
-		clearCompleted: function clearCompleted() {
+		clearCompleted: function () {
 			this.props.model.clearCompleted();
 		},
 
-		render: function render() {
+		render: function () {
 			var footer;
 			var main;
 			var todos = this.props.model.todos;
+			var today = new Date();
+			today = today.toDateString();
 
 			var shownTodos = todos.filter(function (todo) {
 				switch (this.state.nowShowing) {
-					case app.ACTIVE_TODOS:
-						return !todo.completed;
-					case app.COMPLETED_TODOS:
-						return todo.completed;
-					default:
-						return true;
+				case app.ACTIVE_TODOS:
+					return !todo.completed;
+				case app.COMPLETED_TODOS:
+					return todo.completed;
+				default:
+					return true;
 				}
 			}, this);
 
 			var todoItems = shownTodos.map(function (todo) {
-				return React.createElement(TodoItem, {
-					key: todo.id,
-					todo: todo,
-					onToggle: this.toggle.bind(this, todo),
-					onDestroy: this.destroy.bind(this, todo),
-					onEdit: this.edit.bind(this, todo),
-					editing: this.state.editing === todo.id,
-					onSave: this.save.bind(this, todo),
-					onCancel: this.cancel
-				});
+				return (
+					<TodoItem
+						key={todo.id}
+						todo={todo}
+						onToggle={this.toggle.bind(this, todo)}
+						onDestroy={this.destroy.bind(this, todo)}
+						onEdit={this.edit.bind(this, todo)}
+						editing={this.state.editing === todo.id}
+						onSave={this.save.bind(this, todo)}
+						onCancel={this.cancel}
+					/>
+				);
 			}, this);
 
 			var activeTodoCount = todos.reduce(function (accum, todo) {
@@ -124,63 +129,60 @@ alert(133);
 			var completedCount = todos.length - activeTodoCount;
 
 			if (activeTodoCount || completedCount) {
-				footer = React.createElement(TodoFooter, {
-					count: activeTodoCount,
-					completedCount: completedCount,
-					nowShowing: this.state.nowShowing,
-					onClearCompleted: this.clearCompleted
-				});
+				footer =
+					<TodoFooter
+						count={activeTodoCount}
+						completedCount={completedCount}
+						nowShowing={this.state.nowShowing}
+						onClearCompleted={this.clearCompleted}
+					/>;
 			}
 
 			if (todos.length) {
-				main = React.createElement(
-					'section',
-					{ className: 'main' },
-					React.createElement('input', {
-						className: 'toggle-all',
-						type: 'checkbox',
-						onChange: this.toggleAll,
-						checked: activeTodoCount === 0
-					}),
-					React.createElement(
-						'ul',
-						{ className: 'todo-list' },
-						todoItems
-					)
+				main = (
+					<section className="main">
+						<input
+							className="toggle-all"
+							type="checkbox"
+							onChange={this.toggleAll}
+							checked={activeTodoCount === 0}
+						/>
+						<ul className="todo-list">
+							{todoItems}
+						</ul>
+					</section>
 				);
 			}
 
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(
-					'header',
-					{ className: 'header' },
-					React.createElement(
-						'h1',
-						null,
-						'todos'
-					),
-					React.createElement('input', {
-						className: 'new-todo',
-						placeholder: 'What needs to be done?',
-						value: this.state.newTodo,
-						onKeyDown: this.handleNewTodoKeyDown,
-						onChange: this.handleChange,
-						autoFocus: true
-					})
-				),
-				main,
-				footer
+			return (
+				<div>
+					<header className="header">
+						<h1>Do2Do</h1>
+
+						<div className="dateSection"><span className="prev_date" ><a>Prev</a></span><h1 className="todayDate"> Date : {today}  </h1><span className="next_date"><a>Next</a></span></div>
+						<input
+							className="new-todo"
+							placeholder="Tell me what to 2 Do?"
+							value={this.state.newTodo}
+							onKeyDown={this.handleNewTodoKeyDown}
+							onChange={this.handleChange}
+							autoFocus={true}
+						/>
+					</header>
+					{main}
+					{footer}
+				</div>
 			);
 		}
 	});
 
 	var model = new app.TodoModel('react-todos');
-	alert(2);
+
 	function render() {
-		alert(1);
-		React.render(React.createElement(TodoApp, { model: model }), document.getElementsByClassName('todoapp')[0]);
+		React.render(
+			<TodoApp model={model}/>,
+			document.getElementsByClassName('todoapp')[0]
+		);
 	}
 
 	model.subscribe(render);

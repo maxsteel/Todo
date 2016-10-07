@@ -1,10 +1,5 @@
 'use strict';
 
-/*jshint quotmark:false */
-/*jshint white:false */
-/*jshint trailing:false */
-/*jshint newcap:false */
-/*global React */
 var app = app || {};
 
 (function () {
