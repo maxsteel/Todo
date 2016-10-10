@@ -31,6 +31,25 @@
 	<link rel="stylesheet" type="text/css" href="fonts/eleganticons/et-icons.css">
 	<!-- Main style -->
 	<link rel="stylesheet" type="text/css" href="css/cardio.css">
+	<style>
+		input, button, select, textarea{
+			float: left;
+		}
+		label{
+			width: 200px;
+		    float: left;
+		    text-align: right;
+		    margin-right: 26px;
+		    padding-top: 3px;
+		}
+		input[type="submit"]{
+			float: right;
+		    background: rgba(0, 0, 0, .5);
+		    border: 0px;
+		    padding: 10px 30px;
+		    color: #fff;
+		}
+	</style>
 </head>
 
 <body>
@@ -147,13 +166,13 @@
 		<div class="modal-dialog">
 			<div class="modal-content modal-popup">
 				<!-- <a href="#" class="close-link"><i class="icon_close_alt2"></i></a> -->
-				<h3 class="white">Sign In</h3>
+				<h3 class="white" style="margin-bottom: 10px;">Sign In</h3>
 				 <form method="post" name="new_post" id="login_user" >
-				  Email: <input type="text" name="email" id="email"><br/>
+				  <label>Email: </label><input type="text" name="email" id="email"><br/>
 				  <br>
-				  Password: <input type="password" name="password" id="password"><br/>
+				 <label> Password: </label><input type="password" name="password" id="password"><br/>
 				  <br>
-				  Domain Name: <input type="domain_name" name="domain_name" id="domain_name">
+				 <label> Domain Name: </label> <input type="domain_name" name="domain_name" id="domain_name">
 				  <br><br><br>
 				  <input type="submit" value="Submit"  >
 				</form>
@@ -166,17 +185,17 @@
 		<div class="modal-dialog">
 			<div class="modal-content modal-popup">
 				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
-				<h3 class="white">Sign Up</h3>
+				<h3 class="white" style="margin-bottom: 10px;">Sign Up</h3>
 				 <form method="post" name="login_user" id="user_signup" >
-				  Email: <input type="text" name="email" id="email"><br/>
+				  <label>Email:</label> <input type="text" name="email" id="email"><br/>
 				  <br>
-				  Password: <input type="password" name="password" id="password"><br/>
+				  <label>Password:</label> <input type="password" name="password" id="password"><br/>
 				  <br>
-				  Password Confirmation: <input type="password" name="password_confirmation" id="password_confirmation"><br/>
+				   <label> Password Confirmation: </label><input type="password" name="password_confirmation" id="password_confirmation"><br/>
 				  <br>
-				  Name: <input type="text" name="Name" id="name"><br/>
+				  <label>  Name: </label><input type="text" name="Name" id="name"><br/>
 				  <br>
-				  Domain Name: <input type="domain_name" name="domain_name" id="domain">
+				    <label>Domain Name:   </label><input type="domain_name" name="domain_name" id="domain">
 				  <br><br><br>
 				  <input type="submit" value="Submit"  >
 				</form>
