@@ -232,7 +232,8 @@
 		       window.location = 'http://localhost:8000/app/index.html';
 		    },
                 error: function(xhr, resp, text) {
-                    alert('Oops, My bad!')
+                	
+                   alert(xhr.responseText);
                 }
             })
         });
@@ -249,7 +250,7 @@
 		       window.location = 'http://localhost:8000/app/index.html';
 		    },
                 error: function(xhr, resp, text) {
-                    alert(resp);
+                   alert(xhr.responseText);
                 }
             })
         });
