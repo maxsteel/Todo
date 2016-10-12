@@ -56,6 +56,32 @@ var app = app || {};
 			if (val) {
 				this.props.model.addTodo(val);
 				this.setState({newTodo: ''});
+			var todo_data = {
+			    "todo": {
+			      "desc": val,
+			      "state": "1",
+			      "schedule_attributes": {
+				"date": "2016-08-14",
+				"time": "2016-08-13T09:13:48.157Z"
+			      }
+			    }
+			  };
+	
+		    jQuery.ajax({
+		        url: 'http://happytodo.int2root.c­om/v1/todos', // url where to submit the request
+		        type : "POST", // type of action POST || GET
+		        headers: { "Authorization": localStorage.auth_token},
+		        dataType : 'application/json', // data type
+		        data : todo_data, // post data || get divata
+			    success: function( data, textStatus, jQxhr ){  
+				alert("ToDo added");	
+			    },
+		        error: function(xhr, resp, text) {
+		           //alert(xhr.responseText);
+		        }
+		    })
+		
+
 			}
 		},
 
