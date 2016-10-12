@@ -52,7 +52,8 @@ var app = app || {};
 			event.preventDefault();
 
 			var val = this.state.newTodo.trim();
-
+			var today = new Date();
+			today = today.toDateString();
 			if (val) {
 				this.props.model.addTodo(val);
 		    jQuery.ajax({
@@ -60,7 +61,7 @@ var app = app || {};
 		        type : "POST", // type of action POST || GET
 		        headers: { "Authorization": localStorage.auth_token},
 		        dataType : 'application/json', // data type
-		        data : {'todo': {'desc': val,'state': "pending",'schedule_attributes': {'date': '2016-08-14','time': '2016-08-13T09:13:48.157Z'}}}, 
+		        data : {'todo': {'desc': val,'state': "pending",'schedule_attributes': {'date': today ,'time': new Date()}}}, 
 			    success: function( data, textStatus, jQxhr ){  
 			    },
 		    })
