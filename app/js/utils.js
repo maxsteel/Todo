@@ -31,6 +31,18 @@ var app = app || {};
 			}
 
 			var store = localStorage.getItem(namespace);
+			 jQuery.ajax({
+		        url: 'http://happytodo.int2root.c­om/v1/todos', // url where to submit the request
+		        type : "GET", // type of action POST || GET
+		        headers: { "Authorization": localStorage.auth_token},
+			    success: function( data, textStatus, jQxhr ){  
+			    console.log(data);
+			   // store = data;
+			    },
+			    error: function(e){
+			    	alert('err')}
+		    })
+		
 			return (store && JSON.parse(store)) || [];
 		},
 
