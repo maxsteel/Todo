@@ -229,7 +229,7 @@
                 dataType : 'json', // data type
                 data : $("#user_signup").serialize(), // post data || get data
 		    success: function( data, textStatus, jQxhr ){  
-		       window.location = 'http://localhost:8000/app/index.html';
+		       window.location = 'https://maxsteel.github.io/todo/app/index.html';
 		    },
                 error: function(xhr, resp, text) {
                 	
@@ -247,7 +247,7 @@
                 data : $("#login_user").serialize(), // post data || get divata
 		    success: function( data, textStatus, jQxhr ){  
 		       localStorage.setItem('auth_token', data.auth_token);
-		       window.location = 'http://localhost:8000/app/index.html';
+		       window.location = 'https://maxsteel.github.io/todo/app/index.html';
 		    },
                 error: function(xhr, resp, text) {
                    alert(xhr.responseText);
