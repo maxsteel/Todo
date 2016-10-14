@@ -40,7 +40,7 @@ var app = app || {};
 			   // store = data;
 			    },
 			    error: function(e){
-			    	alert('err')}
+			    //	alert('err')}
 		    })
 		
 			return (store && JSON.parse(store)) || [];
