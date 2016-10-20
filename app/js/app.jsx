@@ -26,10 +26,6 @@ var app = app || {};
 		},
 
 		componentDidMount: function () {
-			jQuery('.todoapp').flippage({
-		         width: 'auto',
-		         height: 'auto'
-		     });
 
 			var setState = this.setState;
 			var router = Router({
